@@ -83,7 +83,7 @@ Route::middleware(CheckAuthMiddleware::class)->group(function () {
     Route::post('/student/book/{book}', [BorrowingController::class, 'borrowBook'])->name('borrow.book');
 
     Route::get('/student/borrowing', [UserBorrowingController::class, 'index'])->name('user.borrowings');
-    Route::post('/student/{borrowing}/return', [UserBorrowingController::class, 'markReturned'])->name('user.borrowings.return');
+ 
 
     Route::get('/profile/{id}/student', [UserProfileController::class, 'edit'])->name('profile.student');
 Route::patch('/profile/{id}/studentupdate', [UserProfileController::class, 'update'])->name('student.profile.update');
@@ -106,6 +106,8 @@ Route::middleware(CheckAuthMiddleware::class)->group(function () {
             Route::get('/', 'index')->name('admin.dashboard');
         });
 
+
+           Route::post('{borrowing}/return', [UserBorrowingController::class, 'markReturned'])->name('user.borrowings.return');
         // Author routes
         Route::controller(AuthorController::class)->group(function () {
             Route::get('/author', 'index')->name('admin.author');

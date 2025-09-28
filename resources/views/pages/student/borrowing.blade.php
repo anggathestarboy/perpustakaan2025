@@ -38,7 +38,6 @@
             <th class="px-6 py-3">Catatan</th>
             <th class="px-6 py-3">Denda</th>
             <th class="px-6 py-3">Status</th>
-            <th class="px-6 py-3">Aksi</th>
           </tr>
         </thead>
         <tbody class="text-sm divide-y divide-gray-100">
@@ -71,22 +70,7 @@
                     ⏳ Dipinjam
                   </span>
                 @endif
-              </td>
-              <td class="px-6 py-4">
-                @if (!$borrowing->borrowing_isreturned)
-                  <form method="POST"
-                        action="{{ route('user.borrowings.return', $borrowing->borrowing_id) }}"
-                        onsubmit="return confirm('Apakah kamu yakin ingin menandai peminjaman ini sebagai selesai?')">
-                    @csrf
-                    <button type="submit"
-                            class="inline-block px-4 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md transition">
-                      Tandai Selesai
-                    </button>
-                  </form>
-                @else
-                  <span class="text-gray-400 text-sm">-</span>
-                @endif
-              </td>
+                </td>
             </tr>
           @empty
             <tr>

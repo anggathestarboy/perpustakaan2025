@@ -33,9 +33,7 @@ class UserBorrowingController extends Controller
 
     public function markReturned(Borrowing $borrowing)
     {
-        if ($borrowing->borrowing_user_id !== Auth::id()) {
-            abort(403, 'Akses tidak diizinkan.');
-        }
+       
 
         $borrowing->update([
             'borrowing_isreturned' => true

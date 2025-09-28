@@ -55,20 +55,41 @@
                             <td class="px-4 py-3">
                                     <textarea name="borrowing_notes" class="w-72 h-20 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition">{{ $borrowing->borrowing_notes }}</textarea>
                             </td>
-                            <td class="px-4 py-3">
-                                <div class="flex items-center gap-2">
-                                    <button type="button"
-                                        wire:click="showDetails('{{ $borrowing->borrowing_id }}')" 
-                                        class="min-w-[110px] bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-800 transition font-medium">
-                                        Lihat Detail
-                                    </button>
-                                    <button type="submit"
-                                        class="min-w-[110px] bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 focus:outline-none focus:ring-1 focus:ring-blue-500 transition font-medium">
-                                        Simpan
-                                    </button>
-                                </div>
-                                </form>
-                            </td>
+                           <td class="px-4 py-3">
+    <div class="flex flex-col sm:flex-row items-center gap-2">
+        <!-- Detail Button -->
+        <button type="button"
+                wire:click="showDetails('{{ $borrowing->borrowing_id }}')"
+                class="w-full sm:w-28 bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 transition font-medium text-sm">
+            Lihat Detail
+        </button>
+
+        <!-- Save Button -->
+        <form method="POST" action="{{ route('admin.borrowings.update', $borrowing->borrowing_id) }}" class="w-full sm:w-auto">
+            @csrf
+            <button type="submit"
+                    class="w-full sm:w-28 bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition font-medium text-sm">
+                Simpan Perubahan
+            </button>
+        </form>
+
+        <!-- Return Button (Conditional) -->
+        @if (!$borrowing->borrowing_isreturned)
+            <form method="POST"
+                  action="{{ route('user.borrowings.return', $borrowing->borrowing_id) }}"
+                  onsubmit="return confirm('Apakah kamu yakin ingin menandai peminjaman ini sebagai selesai?')"
+                  class="w-full sm:w-auto">
+                @csrf
+                <button type="submit" style="background: rgb(252, 50, 0)"
+                        class="w-full sm:w-28 bg-blue-700 text-white px-4 py-2 rounded-md hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 transition font-medium text-sm">
+                    Belum Dikembalikan
+                </button>
+            </form>
+        @else
+            <span class="w-full sm:w-28 text-center text-white text-sm py-2 rounded-md" style="background:rgb(17, 165, 17)">Dikembalikan</span>
+        @endif
+    </div>
+</td>
                         </tr>
                     @empty
                         <tr>
