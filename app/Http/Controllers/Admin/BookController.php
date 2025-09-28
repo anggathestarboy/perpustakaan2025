@@ -78,4 +78,17 @@ class BookController extends Controller
 
     return redirect('/admin/book')->with('success', 'Book updated successfully.');
 }
+
+
+
+ public function destroy(string $book_id)
+    {
+        $operation = Book::deleteBook($book_id);
+
+        if ($operation) {
+            return redirect()->route('admin.books.index')->with('success', 'Successfully book category data');
+        } else {
+            return redirect()->route('admin.books.index')->with('error', 'Failed to book category data');
+        }
+    }
 }

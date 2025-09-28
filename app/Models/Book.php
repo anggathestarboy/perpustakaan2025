@@ -74,10 +74,15 @@ public function updateBook(array $data): bool
 
 
     // DELETE
-    public function deleteBook(): ?bool
-    {
-        return $this->delete();
+  public static function deleteBook (string $book_id) {
+    $book = self::where('book_id', $book_id)->first();
+
+    if ($book) {
+        $book->delete();
     }
+
+    return $book;
+}
 
     // READ (ambil semua data buku dengan relasi)
     public static function getAllBooks($paginate = 5)
